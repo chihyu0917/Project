@@ -1,0 +1,63 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #c6c6c6;
+}
+
+canvas {
+	display: block;
+	margin: 40px auto 20px;
+	border: 1px solid #333;
+
+	-webkit-box-shadow: 0 0 16px 2px rgba(0,0,0,0.8);
+	box-shadow: 0 0 16px 2px rgba(0,0,0,0.8);
+}
+
+select {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 23px;
+	color: #444;
+	display: block;
+	width: 800px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+h3 {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 28px;
+	color: #666;
+	display: block;
+	width: 800px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+p {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 19px;
+	color: #444;
+	display: block;
+	width: 800px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.info {
+	margin: 14px auto;
+	text-align: justify;
+	font-size: 18px;
+	color: #999;
+}
+
+label {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	color: #555;
+	width: 400px;
+	margin: 0 auto;
+	display: block;
+}
