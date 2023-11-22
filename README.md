@@ -1,4 +1,4 @@
-# Project
+# My Project
 ### Strategic Chess Game
 Created a chess-playing game that could predict optimal moves for both human players and computer opponents, ensuring the first player had a high chance of winning. Implemented a node-based system for recording information about each game board, including parents, children, and paths; optimized efficiency and reduced processing time by 30% through Alpha-beta pruning
 ### Star Maze Game
