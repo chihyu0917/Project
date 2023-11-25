@@ -33,10 +33,10 @@ if n is not None and m is not None:
     # 显示主窗口
     root.deiconify()
 
-    # 创建棋盘
-    chessboard_frame = tk.Frame(root, borderwidth=1, relief="solid")
-    chessboard_frame.grid(row=0, column=0, padx=100, pady=80)
-    chessboard_frame.configure(background='#5897A0')
+    # # 创建棋盘
+    # chessboard_frame = tk.Frame(root, borderwidth=1, relief="solid")
+    # chessboard_frame.grid(row=0, column=0, padx=100, pady=80)
+    # chessboard_frame.configure(background='#5897A0')
     # root.mainloop()
 
 else:
@@ -176,7 +176,7 @@ player2_score = 0
 # 创建主窗口
 root = tk.Tk()
 root.title("Strategic Chess Game")
-root.configure(background='#64778D')
+root.configure(background='#829BB8')
 
 # # 加载图像
 # image_path = 'chess.png'  # 图像文件路径
