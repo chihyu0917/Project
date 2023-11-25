@@ -20,12 +20,12 @@ class Node:
         self.scores = scores # 分數紀錄
         self.path = path # 路徑
 
-# 这是一个示例函数，用于处理游戏逻辑
-def start_game():
-    # 这里可以添加调用您的 alpha-beta 剪枝等逻辑
-    global flag  # 声明 flag 为全局变量
-    flag = True  # 改变 flag 的值
-    print("Start")
+# # 这是一个示例函数，用于处理游戏逻辑
+# def start_game():
+#     # 这里可以添加调用您的 alpha-beta 剪枝等逻辑
+#     global flag  # 声明 flag 为全局变量
+#     flag = True  # 改变 flag 的值
+#     print("Start")
     
     
 
@@ -126,21 +126,35 @@ with open("output.txt", 'w') as f2:
     f2.write(out)
     f2.close()
 
+chess_old = chess.copy()
+
+def start_game():
+    global flag, tim, player1_score, player2_score, chess, chess_old
+    flag = True
+    chess = chess_old.copy()
+    update_game()  # 开始游戏更新
+
+player1_score = 0
+player2_score = 0
+
 # 创建主窗口
 root = tk.Tk()
 root.title("Strategic Chess Game")
 
 # 创建棋盘
 chessboard_frame = tk.Frame(root, borderwidth=1, relief="solid")
-chessboard_frame.grid(row=0, column=0, padx=10, pady=10)
+chessboard_frame.grid(row=0, column=0, padx=100, pady=80)
 
 # 根据chess数组的值设置按钮颜色
 color_map = {0: "white", 1: "black"}
+buttons = [[None for _ in range(m)] for _ in range(n)]  # 按钮数组
+
 for i in range(n):  
     for j in range(m):
         color = color_map[chess[i][j]]
         button = tk.Button(chessboard_frame, bg=color)
-        button.grid(row=i, column=j, padx=2, pady=2)
+        button.grid(row=i, column=j, padx=10, pady=10)
+        buttons[i][j] = button  # 存储按钮引用
 
 # 创建控制面板
 control_frame = tk.Frame(root, borderwidth=1, relief="solid")
@@ -149,12 +163,6 @@ control_frame.grid(row=0, column=1, padx=10, pady=10, sticky="n")
 start_button = tk.Button(control_frame, text="Start", command=start_game)
 start_button.pack(padx=10, pady=10)
 
-# upload_button = tk.Button(control_frame, text="上传棋盘", command=upload_file)
-# upload_button.pack(padx=10, pady=10)
-
-# download_button = tk.Button(control_frame, text="Download", command=download_result)
-# download_button.pack(padx=10, pady=10)
-
 # 创建结果显示区域
 result_frame = tk.Frame(root, borderwidth=1, relief="solid")
 result_frame.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
@@ -162,57 +170,38 @@ result_frame.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
 result_label = tk.Label(result_frame, text="Result")
 result_label.pack(padx=10, pady=10)
 
-root.mainloop()
 
-player1_score = 0
-player2_score = 0
+def update_game():
+    global tim, flag, player1_score, player2_score, n, m, chess
+    if flag and tim < len(path):
+        if tim % 2 == 0:
+            player1_score += scores[tim]
+            score1 = f'1st Player\nRow/Column: {path[tim][0]} {path[tim][1]}, Total: {player1_score} points'
+            result_label.config(text=score1)
+        else:
+            player2_score += scores[tim]
+            score2 = f'2nd Player\nRow/Column: {path[tim][0]} {path[tim][1]}, Total: {player2_score} points'
+            result_label.config(text=score2)
 
-chess_old = chess.copy()
+        if path[tim][0] == 'Row':
+            for j in range(m):
+                chess[path[tim][1]-1][j] = 0
+        elif path[tim][0] == 'Column':
+            for i in range(n):
+                chess[i][path[tim][1]-1] = 0
 
+        for i in range(n):
+            for j in range(m):
+                color = color_map[chess[i][j]]
+                buttons[i][j].config(bg=color)
 
-while True:
-    if flag:
-        if tim != -1 and tim < len(path):
-            if tim%2 == 0:
-                player1_score += scores[tim]
-                player1 = '1st Player'
-                score1 = str(path[tim][0]+str(path[tim][1])) + ' Total: ' + str(player1_score)+' points'
-                result_label.config(text=score1)
-            else:
-                player2_score += scores[tim]
-                player2 = '2nd Player'
-                score2 = str(path[tim][0]+str(path[tim][1])+' Total: '+str(player2_score)+' points')
-                result_label.config(text=score2)
-            if path[tim][0] == 'Row':
-                for j in range(m):
-                    chess[path[tim][1]-1][j] = 0
-            elif path[tim][0] == 'Column':
-                for i in range(n):
-                    chess[i][path[tim][1]-1] = 0
-        elif tim >= len(path): # 遊戲結束
-            result = 'Score: '+str(score)+' points'+', '+'Total run time = ' + "{:0.3f}".format(end-start) + ' seconds.'
-            time.sleep(1.5)
-    else: # 遊戲未開始
-        flag = False
-        chess = chess_old.copy()
-        tim = -1
-        player1_score = 0
-        player2_score = 0
-
-    # 顯示所有棋子
-    for i in range(n):
-        for j in range(m):
-            if chess[i][j] == 1:
-                button = tk.Button(chessboard_frame, bg='black')
-       
-
-    #滑鼠左鍵延時作用
-    if flag:
         tim += 1
-        time.sleep(1.5)
-   
-    if tim == len(path)+3:
-        flag = False
-        break
+        if tim < len(path):
+            root.after(1500, update_game)  # 继续周期性调用
+        else:
+            result = f'Score: {score} points, Total run time = {end-start:.3f} seconds.'
+            result_label.config(text=result)
+            flag = False
 
-    
+
+root.mainloop()
