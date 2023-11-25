@@ -1,12 +1,11 @@
 import tkinter as tk
 from tkinter import filedialog
-# from tkinter import PhotoImage
-# from PIL import Image, ImageTk
+from tkinter import simpledialog
 import numpy as np
 import time
+import random
 
-# 開始計時
-start = time.time()
+
 tim = 0
 flag = False
 
@@ -22,15 +21,50 @@ class Node:
         self.scores = scores # 分數紀錄
         self.path = path # 路徑
 
-# # 这是一个示例函数，用于处理游戏逻辑
-# def start_game():
-#     # 这里可以添加调用您的 alpha-beta 剪枝等逻辑
-#     global flag  # 声明 flag 为全局变量
-#     flag = True  # 改变 flag 的值
-#     print("Start")
-    
+# 创建主窗口
+root = tk.Tk()
+root.withdraw()  # 隐藏主窗口
+
+# 弹出对话框让用户输入行数和列数
+n = simpledialog.askinteger("Input", "Enter number of rows:", parent=root, minvalue=1, maxvalue=10)
+m = simpledialog.askinteger("Input", "Enter number of columns:", parent=root, minvalue=1, maxvalue=10)
+
+if n is not None and m is not None:
+    # 显示主窗口
+    root.deiconify()
+
+    # 创建棋盘
+    chessboard_frame = tk.Frame(root, borderwidth=1, relief="solid")
+    chessboard_frame.grid(row=0, column=0, padx=100, pady=80)
+    chessboard_frame.configure(background='#5897A0')
+    # root.mainloop()
+
+else:
+    print("No input provided")
     
 
+length = ''
+length = str(n) + ' ' + str(m) + '\n'
+
+# 隨機產生0或1的矩陣
+start_str = ''
+for i in range(n):
+    start_str = start_str + " ".join(str(random.randint(0,1)) for _ in range(m))
+    start_str = start_str + '\n'
+# 如果矩陣全為0，則重新產生
+while start_str.count('1') == 0:
+    start_str = ''
+    for i in range(n):
+        start_str = start_str + " ".join(str(random.randint(0,1)) for _ in range(m))
+        start_str = start_str + '\n'
+
+out = length + start_str
+with open('input.txt', 'w') as f3:
+    f3.write(out)
+    f3.close()
+
+# 開始計時
+start = time.time()
 
 # 讀取input.txt
 with open("input.txt", "r") as f:
@@ -142,7 +176,7 @@ player2_score = 0
 # 创建主窗口
 root = tk.Tk()
 root.title("Strategic Chess Game")
-# root.configure(background='#01162B')
+root.configure(background='#64778D')
 
 # # 加载图像
 # image_path = 'chess.png'  # 图像文件路径
@@ -151,7 +185,7 @@ root.title("Strategic Chess Game")
 # 创建棋盘
 chessboard_frame = tk.Frame(root, borderwidth=1, relief="solid")
 chessboard_frame.grid(row=0, column=0, padx=100, pady=80)
-# chessboard_frame.configure(background='#5897A0')
+# chessboard_frame.configure(background='#64778D')
 
 
 # 根据chess数组的值设置按钮颜色
@@ -171,14 +205,14 @@ for i in range(n):
 control_frame = tk.Frame(root, borderwidth=1, relief="solid")
 control_frame.grid(row=0, column=1, padx=10, pady=10, sticky="n")
 
-start_button = tk.Button(control_frame, text="Start", command=start_game)
+start_button = tk.Button(control_frame, text="Start", command=start_game, bg='#64778D', fg='white', font=('Times New Roman', 10))
 start_button.pack(padx=10, pady=10)
 
 # 创建结果显示区域
-result_frame = tk.Frame(root, borderwidth=1, relief="solid")
+result_frame = tk.Frame(root, borderwidth=1, relief="solid", bg='#64778D')
 result_frame.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
 
-result_label = tk.Label(result_frame, text="Result")
+result_label = tk.Label(result_frame, text="Result", bg='#64778D', fg='white', font=('Times New Roman', 10))
 result_label.pack(padx=10, pady=10)
 
 
@@ -208,7 +242,7 @@ def update_game():
 
         tim += 1
         if tim < len(path):
-            root.after(3000, update_game)  # 继续周期性调用
+            root.after(2000, update_game)  # 继续周期性调用
         else:
             result = f'Score: {score} points, Total run time = {end-start:.3f} seconds.'
             result_label.config(text=result)
