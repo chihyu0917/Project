@@ -215,19 +215,26 @@ result_frame.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
 result_label = tk.Label(result_frame, text="Result", bg='#64778D', fg='white', font=('Times New Roman', 10))
 result_label.pack(padx=10, pady=10)
 
+# 创建個別玩家分數顯示區域
+score_frame = tk.Frame(root, borderwidth=1, relief="solid", bg='#64778D')
+score_frame.grid(row=2, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
+
+score_label = tk.Label(score_frame, text="Score", bg='#64778D', fg='white', font=('Times New Roman', 10))
+score_label.pack(padx=10, pady=10)
 
 def update_game():
     global tim, flag, player1_score, player2_score, n, m, chess
     if flag and tim < len(path):
         if tim % 2 == 0:
             player1_score += scores[tim]
-            score1 = f'1st Player\nRow/Column: {path[tim][0]} {path[tim][1]}, Total: {player1_score} points'
+            score1 = f'1st Player\nRow/Column: {path[tim][0]} {path[tim][1]}'
             result_label.config(text=score1)
+            score_label.config(text=f'1st Player: {player1_score} points\n2nd Player: {player2_score} points')
         else:
             player2_score += scores[tim]
-            score2 = f'2nd Player\nRow/Column: {path[tim][0]} {path[tim][1]}, Total: {player2_score} points'
+            score2 = f'2nd Player\nRow/Column: {path[tim][0]} {path[tim][1]}'
             result_label.config(text=score2)
-
+            score_label.config(text=f'1st Player: {player1_score} points\n2nd Player: {player2_score} points')
         if path[tim][0] == 'Row':
             for j in range(m):
                 chess[path[tim][1]-1][j] = 0
