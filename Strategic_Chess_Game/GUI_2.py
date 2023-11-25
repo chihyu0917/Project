@@ -1,11 +1,13 @@
 import tkinter as tk
 from tkinter import filedialog
+# from tkinter import PhotoImage
+# from PIL import Image, ImageTk
 import numpy as np
 import time
 
 # 開始計時
 start = time.time()
-tim = -1
+tim = 0
 flag = False
 
 # 節點資訊
@@ -140,21 +142,30 @@ player2_score = 0
 # 创建主窗口
 root = tk.Tk()
 root.title("Strategic Chess Game")
+# root.configure(background='#01162B')
+
+# # 加载图像
+# image_path = 'chess.png'  # 图像文件路径
+# photo = PhotoImage(file=image_path)
 
 # 创建棋盘
 chessboard_frame = tk.Frame(root, borderwidth=1, relief="solid")
 chessboard_frame.grid(row=0, column=0, padx=100, pady=80)
+# chessboard_frame.configure(background='#5897A0')
+
 
 # 根据chess数组的值设置按钮颜色
-color_map = {0: "white", 1: "black"}
+color_map = {0: "#F0D9B5", 1: "#B58863"}
 buttons = [[None for _ in range(m)] for _ in range(n)]  # 按钮数组
 
 for i in range(n):  
     for j in range(m):
         color = color_map[chess[i][j]]
-        button = tk.Button(chessboard_frame, bg=color)
-        button.grid(row=i, column=j, padx=10, pady=10)
-        buttons[i][j] = button  # 存储按钮引用
+        # 创建一个更大尺寸的按钮
+        button = tk.Button(chessboard_frame, bg=color, width=4, height=2)
+        button.grid(row=i, column=j, padx=5, pady=5)
+        buttons[i][j] = button
+
 
 # 创建控制面板
 control_frame = tk.Frame(root, borderwidth=1, relief="solid")
@@ -197,10 +208,12 @@ def update_game():
 
         tim += 1
         if tim < len(path):
-            root.after(1500, update_game)  # 继续周期性调用
+            root.after(3000, update_game)  # 继续周期性调用
         else:
             result = f'Score: {score} points, Total run time = {end-start:.3f} seconds.'
             result_label.config(text=result)
+            # result = f'The End'
+            # result_label.config(text=result)
             flag = False
 
 
