@@ -1,6 +1,8 @@
 # README
 ## Strategic Chess Game
 [Try on Replit](https://replit.com/@chihyu0917/chess-game#main.py)
+(Recommend zooming out your screen.)
+
 [Demo Video on YouTube](https://www.youtube.com/watch?v=a4eOCZ6Cqpc)
 ### Description
 Created a chess-playing game that could predict optimal moves for both human players and computer opponents, 
