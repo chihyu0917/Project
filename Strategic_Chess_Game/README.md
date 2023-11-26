@@ -14,3 +14,4 @@ first player, enabling enhanced strategic depth in human-computer chess matches.
 - chess.py: Without GUI
 - GUI_2.py: The latest version of the chess game
 - GUI_2.py: The old version of the chess game
+- random_input.py: Randomly generate input.txt
