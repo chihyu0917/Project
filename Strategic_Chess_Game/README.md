@@ -4,6 +4,7 @@
 (Recommend zooming out your screen.)
 
 [Demo Video on YouTube](https://www.youtube.com/watch?v=a4eOCZ6Cqpc)
+
 ### Description
 Created a chess-playing game that could predict optimal moves for both human players and computer opponents, 
 ensuring the first player had a high chance of winning.
@@ -15,3 +16,7 @@ first player, enabling enhanced strategic depth in human-computer chess matches.
 - GUI_2.py: The latest version of the chess game
 - GUI_2.py: The old version of the chess game
 - random_input.py: Randomly generate input.txt
+
+### Installation
+Please ensure that the Python modules **numpy** and **tkinter** are working on your computer. 
+If not, you can install them using **pip**.
