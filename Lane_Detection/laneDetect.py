@@ -2,7 +2,7 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-imagePath = r'./images/lane3.jpg'
+imagePath = r'./images/lane.jpg'
 image1 = cv2.imread(imagePath)
 plt.imshow(image1)
 
@@ -40,7 +40,7 @@ def display_lines(image, lines):
         for line in lines:
             x1, y1, x2, y2 = line
             #draw lines on a black image
-            cv2.line(lines_image, (x1, y1), (x2, y2), (255, 0, 0), 10)
+            cv2.line(lines_image, (x1, y1), (x2, y2), (0, 0, 255), 10)
     return lines_image
 
 def average(image, lines):
@@ -49,11 +49,11 @@ def average(image, lines):
 
     if lines is not None:
       for line in lines:
-        print(line)
+        # print(line)
         x1, y1, x2, y2 = line.reshape(4)
         #fit line to points, return slope and y-int
         parameters = np.polyfit((x1, x2), (y1, y2), 1)
-        print(parameters)
+        # print(parameters)
         slope = parameters[0]
         y_int = parameters[1]
         #lines on the right have positive slope, and lines on the left have neg slope
@@ -91,4 +91,5 @@ averaged_lines = average(copy, lines)
 black_lines = display_lines(copy, averaged_lines)
 lanes = cv2.addWeighted(copy, 0.8, black_lines, 1, 1)
 cv2.imshow("lanes", lanes)
+cv2.imwrite('outputLane.jpg', lanes)
 cv2.waitKey(0)
