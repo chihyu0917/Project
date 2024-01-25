@@ -3,7 +3,7 @@
 - [Strategic Chess Game](#strategic-chess-game)
 - [Star Maze Game](#star-maze-game)
 - [Lane Detection](#lane-detection)
-- [Face Recognition in KPOP](#face-recognition-in-kpop)
+- [Face Detector for Idols](#face-detector-for-idols)
 
 ## Strategic Chess Game
 Created a chess-playing game that could predict optimal moves for both human players and computer opponents, ensuring the first player had a high chance of winning. Implemented a node-based system for recording information about each game board, including parents, children, and paths; optimized efficiency and reduced processing time by 30% through Alpha-beta pruning
@@ -17,5 +17,5 @@ Using JavaScript WebGL/OpenGL to draw all objects in 3D space. Using HTML/CSS to
 ## Lane Detection
 Using Canny detector-Hough transform and define edges to calculate the slopes and the intercepts. Visualized and recognized objects in real-time from the perspective of an electric vehicle.
 
-## Face Recognition in KPOP
+## Face Detector for Idols
 To solve the problem of recognizing many members of Korean groups, it uses face recognition technology to help the director recognize people in a short time. Using [Haar Cascade](https://github.com/opencv/opencv/tree/4.x/data/haarcascades) from OpenCV to train the face model and inferred face model in Python.
